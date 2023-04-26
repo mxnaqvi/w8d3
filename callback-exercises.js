@@ -70,18 +70,18 @@
 //       this.name = "a lamp";
 //     }
 //   }
-  
+
 //   const turnOn = function() {
 //     console.log("Turning on " + this.name);
 //   };
-  
+
 //   const lamp = new Lamp();
-  
+
 // //   turnOn(); // should not work the way we want it to
-  
+
 //   const boundTurnOn = turnOn.bind(lamp);
 //   const myBoundTurnOn = turnOn.myBind(lamp);
-  
+
 //   boundTurnOn(); // should say "Turning on a lamp"
 //   myBoundTurnOn(); // should say "Turning on a lamp"
 
@@ -93,39 +93,40 @@ const reader = readline.createInterface({
 
 
 function askIfGreaterThan(el1, el2, cb) {
-    reader.question(`Is ${el1} greater than ${el2}. Only answer with yes or no`, answer => {
+    reader.question(`Is ${el1} greater than ${el2}? Only answer with yes or no: `, answer => {
         answer === 'yes' ? cb(true) : cb(false);
     })
 }
 
-function innerBubbleSortLoop(arr, i, madeAnySwaps, outerBubbleSortLoop){
-    // let madeAnySwaps = false
-    if ( i < arr.length - 1){
-        askIfGreaterThan(arr[i], arr[i+1], function(isGreaterThan){
-            if (isGreaterThan === true){
-                [arr[i], arr[i+1]] = [arr[i+1], arr[i]];
+function innerBubbleSortLoop(arr, i, madeAnySwaps, outerBubbleSortLoop) {
+    if (i < arr.length - 1) {
+        askIfGreaterThan(arr[i], arr[i + 1], function (isGreaterThan) {
+            if (isGreaterThan === true) {
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
                 madeAnySwaps = true;
-                innerBubbleSortLoop(arr, i+1, madeAnySwaps, outerBubbleSortLoop);
+                innerBubbleSortLoop(arr, i + 1, true, outerBubbleSortLoop);
+            } else {
+                innerBubbleSortLoop(arr, i + 1, false, outerBubbleSortLoop);
             }
-        } )
+        })
     }
-    if(i === arr.length-1){
-    outerBubbleSortLoop(madeAnySwaps);
+    if (i === arr.length - 1) {
+        outerBubbleSortLoop(madeAnySwaps);
     }
 }
 
-function absurdBubbleSort(arr, sortCompletionCallback){
-    madeAnySwaps = true
-    function outerBubbleSortLoop(madeAnySwaps){
-        if (madeAnySwaps === true){
+function absurdBubbleSort(arr, sortCompletionCallback) {
+    function outerBubbleSortLoop(madeAnySwaps) {
+        if (madeAnySwaps === true) {
             innerBubbleSortLoop(arr, 0, false, outerBubbleSortLoop);
-        }else {
+        } else {
             sortCompletionCallback(arr);
-        }
-    }
+        };
+    };
+    outerBubbleSortLoop(true);
 }
 
-absurdBubbleSort([3, 2, 1], function(arr) {
+absurdBubbleSort([3, 2, 1], function (arr) {
     console.log("Sorted array: " + JSON.stringify(arr));
     reader.close();
-  });
+});
