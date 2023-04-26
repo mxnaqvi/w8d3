@@ -33,29 +33,55 @@
 
 
 
-const readline = require("readline");
-const reader = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+// const readline = require("readline");
+// const reader = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout
+// });
 
 
-function addNumbers(sum, numsLeft, cb) {
+// function addNumbers(sum, numsLeft, cb) {
 
-    if (numsLeft > 0) {
-        reader.question("Input a Number: ", answer => {
-            let num = parseInt(answer);
-            sum += num;
-            console.log(sum);
-            numsLeft -= 1;
-            console.log(`numsLeft: ${numsLeft}`);
-            addNumbers(sum, numsLeft, cb);
-        })
-    } else {
-        cb(sum);
-        reader.close();
-    }
-}
+//     if (numsLeft > 0) {
+//         reader.question("Input a Number: ", answer => {
+//             let num = parseInt(answer);
+//             sum += num;
+//             console.log(sum);
+//             numsLeft -= 1;
+//             console.log(`numsLeft: ${numsLeft}`);
+//             addNumbers(sum, numsLeft, cb);
+//         })
+//     } else {
+//         cb(sum);
+//         reader.close();
+//     }
+// }
 
-addNumbers(0, 3, sum => console.log(`Total Sum: ${sum}`));
+// addNumbers(0, 3, sum => console.log(`Total Sum: ${sum}`));
+
+// Function.prototype.myBind = function(context){
+//     return () => {
+//         return this.apply(context);
+//     }
+// }
+
+// class Lamp {
+//     constructor() {
+//       this.name = "a lamp";
+//     }
+//   }
+  
+//   const turnOn = function() {
+//     console.log("Turning on " + this.name);
+//   };
+  
+//   const lamp = new Lamp();
+  
+// //   turnOn(); // should not work the way we want it to
+  
+//   const boundTurnOn = turnOn.bind(lamp);
+//   const myBoundTurnOn = turnOn.myBind(lamp);
+  
+//   boundTurnOn(); // should say "Turning on a lamp"
+//   myBoundTurnOn(); // should say "Turning on a lamp"
 
