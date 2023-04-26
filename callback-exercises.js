@@ -85,3 +85,47 @@
 //   boundTurnOn(); // should say "Turning on a lamp"
 //   myBoundTurnOn(); // should say "Turning on a lamp"
 
+const readline = require("readline");
+const reader = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+
+function askIfGreaterThan(el1, el2, cb) {
+    reader.question(`Is ${el1} greater than ${el2}. Only answer with yes or no`, answer => {
+        answer === 'yes' ? cb(true) : cb(false);
+    })
+}
+
+function innerBubbleSortLoop(arr, i, madeAnySwaps, outerBubbleSortLoop){
+    // let madeAnySwaps = false
+    if ( i < arr.length - 1){
+        askIfGreaterThan(arr[i], arr[i+1], function(isGreaterThan){
+            if (isGreaterThan === true){
+                [arr[i], arr[i+1]] = [arr[i+1], arr[i]];
+                madeAnySwaps = true;
+                innerBubbleSortLoop(arr, i+1, madeAnySwaps, outerBubbleSortLoop);
+            }
+        } )
+    }
+    if(i === arr.length-1){
+    outerBubbleSortLoop(madeAnySwaps);
+    }
+}
+
+function absurdBubbleSort(arr, sortCompletionCallback){
+    madeAnySwaps = true
+    function outerBubbleSortLoop(madeAnySwaps){
+        if (madeAnySwaps === true){
+            innerBubbleSortLoop(arr, 0, false, outerBubbleSortLoop);
+        }else {
+            sortCompletionCallback(arr);
+        }
+    }
+}
+
+absurdBubbleSort([3, 2, 1], function(arr) {
+    console.log("Sorted array: " + JSON.stringify(arr));
+    reader.close();
+  });
